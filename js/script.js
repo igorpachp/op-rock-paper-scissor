@@ -5,6 +5,7 @@ let validChoices = ['rock', 'paper', 'scissor'];
 let enemyChoice;
 let userChoice;
 let isGameOver = false;
+let firstTime = true;
 
 function welcome() {
     console.log("================================================");
@@ -13,6 +14,7 @@ function welcome() {
     console.log("--- Do you have what it takes? -----------------");
     console.log("--- Wish you good luck! ------------------------");
     console.log("================================================");
+    firstTime = false;
 }
 
 function showScore() {
@@ -58,7 +60,7 @@ function getUserChoice() {
 }
 
 function displayChoices(user, enemy, result) {
-    console.log(`You have chosen ${user} while you enemy chose ${enemy}`);
+    console.log(`\n\nYou have chosen ${user} while you enemy chose ${enemy}`);
     if (result == 1)
        console.log(`You won this round!`);
     else if (result == 0)
@@ -114,7 +116,9 @@ function gameOver() {
         console.log("---------- YOU LOST ----------");
 }
 
-function play() {
+function gameLoop() {
+    if (firstTime)
+        welcome();
     if (display)
         showScore();
 
@@ -135,6 +139,8 @@ function play() {
         gameOver();
 }
 
-while (!isGameOver) {
-    play();
+function play() {
+    while (!isGameOver) {
+        gameLoop();
+    }
 }
