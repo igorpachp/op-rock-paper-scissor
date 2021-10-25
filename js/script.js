@@ -1,8 +1,10 @@
 let userScore = 0;
 let enemyScore = 0;
+let display = true;
 let validChoices = ['rock', 'paper', 'scissor'];
 let enemyChoice;
 let userChoice;
+let isGameOver = false;
 
 function welcome() {
     console.log("================================================");
@@ -15,7 +17,7 @@ function welcome() {
 
 function showScore() {
     console.log("=== GAME SCORE =================================");
-    console.log("--- You have scored ${userScore} points -------------------");
+    console.log(`--- You have scored ${userScore} points -------------------`);
     console.log(`--- Your opponent has scored ${enemyScore} points ----------`);
     if (userScore > enemyScore)
         console.log("--- You are in the lead, let's do this! --------");
@@ -61,7 +63,7 @@ function displayChoices(user, enemy, result) {
        console.log(`You won this round!`);
     else if (result == 0)
         console.log(`That's a draw! No one gets points...`);
-    else (result == -1)
+    else
         console.log(`You lost this one!`);
 }
 
@@ -103,4 +105,36 @@ function compareChoices(user, enemy) {
     return result;
 }
 
+function gameOver() {
+    isGameOver = true;
 
+    if (userScore == 5)
+        console.log("---------- YOU WIN -----------");
+    else
+        console.log("---------- YOU LOST ----------");
+}
+
+function play() {
+    if (display)
+        showScore();
+
+    display = true;
+    enemyChoice = getEnemyChoice();
+    userChoice = getUserChoice();
+    if (userChoice === "invalid") {
+        display = false;
+        return;
+    }
+
+    let result = compareChoices(userChoice, enemyChoice);
+    if (result > 0)
+        userScore++;
+    else if (result < 0)
+        enemyScore++;
+    if (userScore == 5 || enemyScore == 5)
+        gameOver();
+}
+
+while (!isGameOver) {
+    play();
+}
