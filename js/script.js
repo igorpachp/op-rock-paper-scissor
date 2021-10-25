@@ -114,6 +114,7 @@ function gameOver() {
         console.log("---------- YOU WIN -----------");
     else
         console.log("---------- YOU LOST ----------");
+    console.log("If you would like to play again, type \"playAgain()\"\nwithout quotes but keeping parenthesis...")
 }
 
 function gameLoop() {
@@ -143,4 +144,11 @@ function play() {
     while (!isGameOver) {
         gameLoop();
     }
+}
+
+function playAgain() {
+    isGameOver = false;
+    userScore = 0;
+    enemyScore = 0;
+    play();
 }
