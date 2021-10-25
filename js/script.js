@@ -1,5 +1,8 @@
 let userScore = 0;
 let enemyScore = 0;
+let validChoices = ['rock', 'paper', 'scissor'];
+let enemyChoice;
+let userChoice;
 
 function welcome() {
     console.log("================================================");
@@ -22,3 +25,34 @@ function showScore() {
         console.log("--- You are tied, don't get nervous! -----------");
     console.log("================================================");
 }
+
+function getEnemyChoice() {
+    return validChoices[Math.floor(Math.random() * 3)];
+}
+
+function validateInput(input) {
+    if (!(typeof input === "string") || input instanceof String)
+        return false;
+    
+    for (let i = 0; i < 3; i++) {
+        if (input.toLowerCase() === validChoices[i]) return true;
+    }
+
+    return false;
+}
+
+function getUserChoice() {
+    let input = prompt();
+    let isValid = validateInput(input);
+
+    if (!isValid){
+        if (input !== "")
+            console.log(`--- ERROR: ${input} is not a valid choice!!! `);
+        console.log(`--- Please, type "rock", "paper" or "scissor" whithout quotes...`);
+        return "invalid";
+    }
+
+    return input;
+}
+
+console.log(getUserChoice());
