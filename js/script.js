@@ -55,4 +55,52 @@ function getUserChoice() {
     return input;
 }
 
-console.log(getUserChoice());
+function displayChoices(user, enemy, result) {
+    console.log(`You have chosen ${user} while you enemy chose ${enemy}`);
+    if (result == 1)
+       console.log(`You won this round!`);
+    else if (result == 0)
+        console.log(`That's a draw! No one gets points...`);
+    else (result == -1)
+        console.log(`You lost this one!`);
+}
+
+function compareChoices(user, enemy) {
+    let result;
+    switch (user) {
+        case validChoices[0]:
+            // case where user chose rock
+            if (enemy === user) {
+                result = 0;
+            } else if (enemy === validChoices[1]) {
+                result = -1;
+            } else {
+                result = 1;
+            }
+            break;
+        case validChoices[1]:
+            // case where user chose paper
+            if (enemy === user) {
+                result = 0;
+            } else if (enemy === validChoices[2]) {
+                result = -1;
+            } else {
+                result = 1;
+            }
+            break;
+        case validChoices[2]:
+            // case where user chose scissor
+            if (enemy === user) {
+                result = 0;
+            } else if (enemy === validChoices[0]) {
+                result = -1;
+            } else {
+                result = 1;
+            }
+            break;
+    }
+    displayChoices(user, enemy, result);
+    return result;
+}
+
+
