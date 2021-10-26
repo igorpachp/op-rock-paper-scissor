@@ -6,10 +6,11 @@
   <title>Rock, Paper, Scissor!</title>
   <link rel="stylesheet" href="css/reset.css"/>
   <link rel="stylesheet" href="css/style.css"/>
-  <script src="js/script.js"></script>
+  <script src="js/script.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/34dd28c5bd.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <h1><span class="rock">Rock</span><span class="paper">Paper</span><span class="scissor">Scissor</span></h1>
@@ -26,7 +27,39 @@
       <p><span class="paper">Paper</span> beats <span class="rock">Rock</span></p>
       <div class="separator"></div>
       <p><span class="scissor">Scissor</span> beats <span class="paper">Paper</span></p>
+    </div>
   </div>
+
+  <div class="stage">
+    <div class="options">
+      <div class="rock">
+        <i class="fas fa-hand-rock"></i>
+      </div>
+      <div class="paper">
+        <i class="fas fa-hand-paper"></i>
+      </div>
+      <div class="scissor">
+        <i class="fas fa-hand-scissors"></i>
+      </div>
+    </div>
+
+    <div class="score-board">
+      <div class="choice">
+        <i class="fas fa-hand-scissors"></i>
+      </div>
+      <span class="score">0</span>
+      <span>x</span>
+      <span class="score">0</span>
+      <div class="choice">
+        <i class="fas fa-hand-scissors"></i>
+      </div>
+    </div>
+
+    <div class="outcome">
+      That's a draw! No one gets points...
+    </div>
+
+    <button class="play">play</button>
   </div>
 
   <div class="warning">

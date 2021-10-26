@@ -2,13 +2,17 @@ body {
     font-family: 'Patrick Hand', cursive;
     color: #4f4a40;
     background-color: #f0f4f8;
+    max-width: 720px;
+    box-sizing: border-box;
+    padding: 24px;
+    margin: 0 auto;
 }
 
 h1 {
     font-size: 64px;
     text-transform: uppercase;
     font-weight: bold;
-    margin: 24px;
+    margin: 0 0 24px;
     display: flex;
     gap: 24px;
     justify-content: center;
@@ -29,18 +33,22 @@ h1 {
     flex: 0 1 auto;
 }
 
+.draw {
+    color: #6f6a60;
+    border: solid 4px #6f6a60;
+}
+
 .welcome,
-.warning {
+.warning,
+.stage {
     border: solid 2px #dddddd;
     border-radius: 8px;
     background-color: #ffffff;
-    width: 65%;
-    box-sizing: border-box;
 }
 
 .welcome {
     margin: 0 auto;
-    padding: 64px;
+    padding: 32px 64px;
     font-size: 24px;
     text-align: center;
 }
@@ -71,9 +79,76 @@ h2 {
 
 .warning {
     padding: 16px 32px;
-    margin: 16px auto;
+    margin: 0 auto;
 }
 
 .command {
     color: #888888;
+}
+
+.stage {
+    margin: 16px auto;
+    padding: 32px 64px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.play {
+    font-size: 32px;
+    font-family: 'Patrick Hand', cursive;
+    padding: 8px 32px;
+    text-transform: uppercase;
+    color: #f0f4f8;
+    font-weight: bold;
+    background-color: #ff7733;
+    border: none;
+    border-radius: 8px;
+    transition: transform .5s, background .25s;
+}
+
+.play:hover {
+    background-color: #cc4420;
+    transform: scale(1.25);
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.options > div {
+    border: solid #dddddd 2px;
+    border-radius: 12px;
+    padding: 32px;
+    font-size: 64px;
+}
+
+.score-board {
+    font-size: 64px;
+    color: #6f6a60;
+    border: solid 4px #dddddd;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.score {
+    font-size: 128px;
+}
+
+.choice {
+    font-size: 128px;
+    border: solid #dddddd 2px;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.outcome {
+    font-size: 24px;
 }
