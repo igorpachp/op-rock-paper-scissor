@@ -76,6 +76,23 @@ function getEnemyChoice() {
     return validChoices[Math.floor(Math.random() * 3)];
 }
 
+function createChoiceElement(choice) {
+    let choiceElement = document.createElement("i");
+    switch (choice) {
+        case "rock":
+            choiceElement.classList.add("fas", "fa-hand-rock");
+            break;
+        case "paper":
+            choiceElement.classList.add("fas", "fa-hand-paper");
+            break;
+        case "scissor":
+            choiceElement.classList.add("fas", "fa-hand-scissors");
+            break;
+    }
+
+    return choiceElement;
+}
+
 function validateInput(input) {
     if (!(typeof input === "string") || input instanceof String)
         return false;
@@ -102,13 +119,35 @@ function getUserChoice() {
 }
 
 function displayChoices(user, enemy, result) {
+    // cleaning previous round result
+    currentChoices[0].innerHTML = "";
+    currentChoices[1].innerHTML = "";
+
+    userElement = createChoiceElement(user);
+    enemyElement = createChoiceElement(enemy);
+
+    currentChoices[0].appendChild(userElement);
+    currentChoices[1].appendChild(enemyElement);
+
+    // removing the inline css added previously to hide these elements
+    currentChoices.forEach(choice => {
+        choice.setAttribute("style", "");
+    });
+    outcome.setAttribute("style", "");
+
     console.log(`\n\nYou have chosen ${user} while you enemy chose ${enemy}`);
     if (result == 1)
-       console.log(`You won this round!`);
+    {
+       outcome.innerHTML = "You won this round!";
+    }
     else if (result == 0)
-        console.log(`That's a draw! No one gets points...`);
+    {
+       outcome.innerHTML = "That's a draw! No one gets points...";
+    }
     else
-        console.log(`You lost this one!`);
+    {
+       outcome.innerHTML = "You lost this one";
+    }
 }
 
 function compareChoices(user, enemy) {
