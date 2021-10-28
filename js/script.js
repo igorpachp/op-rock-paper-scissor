@@ -1,12 +1,10 @@
 // game variables
 let userScore = 0;
 let enemyScore = 0;
-let display = true;
 let validChoices = ['rock', 'paper', 'scissor'];
 let enemyChoice;
 let userChoice;
 let isGameOver = false;
-let firstTime = true;
 
 // DOM elements
 let playButton = document.querySelector(".play");
@@ -21,15 +19,26 @@ hideGameStage();
 
 // Nothing should happen until this button is pressed
 playButton.addEventListener("click", (e) => {
+    if (isGameOver) {
+        userScore = 0;
+        enemyScore = 0;
+        updateScorePoints();
+        isGameOver = false;
+        outcome.setAttribute("style", "display: none");
+    }
+
     displayGameStage(e);
-    // play();
 });
 
+// making choice buttons clickable
 playerOptionsButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        userChoice = e.currentTarget.classList[0];
-        enemyChoice = getEnemyChoice();
-        gameLoop();
+        if (!isGameOver)
+        {
+            userChoice = e.currentTarget.classList[0];
+            enemyChoice = getEnemyChoice();
+            gameLoop();
+        }
     });
 });
 
@@ -47,29 +56,6 @@ function displayGameStage(playButton) {
     playButton.target.setAttribute("style", "display: none");
     playerOptionsContainer.setAttribute("style", "");
     scoreBoard.setAttribute("style", "");
-}
-
-function welcome() {
-    console.log("================================================");
-    console.log("--- Welcome to the game! -----------------------");
-    console.log("--- You have to win 5 times to claim victory ---");
-    console.log("--- Do you have what it takes? -----------------");
-    console.log("--- Wish you good luck! ------------------------");
-    console.log("================================================");
-    firstTime = false;
-}
-
-function showScore() {
-    console.log("=== GAME SCORE =================================");
-    console.log(`--- You have scored ${userScore} points -------------------`);
-    console.log(`--- Your opponent has scored ${enemyScore} points ----------`);
-    if (userScore > enemyScore)
-        console.log("--- You are in the lead, let's do this! --------");
-    else if (userScore < enemyScore)
-        console.log("--- The enemy is leading! Play carefully... ----");
-    else if (userScore != 0 && enemyScore != 0)
-        console.log("--- You are tied, don't get nervous! -----------");
-    console.log("================================================");
 }
 
 function getEnemyChoice() {
@@ -93,31 +79,6 @@ function createChoiceElement(choice) {
     return choiceElement;
 }
 
-function validateInput(input) {
-    if (!(typeof input === "string") || input instanceof String)
-        return false;
-    
-    for (let i = 0; i < 3; i++) {
-        if (input.toLowerCase() === validChoices[i]) return true;
-    }
-
-    return false;
-}
-
-function getUserChoice() {
-    let input = prompt();
-    let isValid = validateInput(input);
-
-    if (!isValid){
-        if (input !== "")
-            console.log(`--- ERROR: ${input} is not a valid choice!!! `);
-        console.log(`--- Please, type "rock", "paper" or "scissor" whithout quotes...`);
-        return "invalid";
-    }
-
-    return input;
-}
-
 function displayChoices(user, enemy, result) {
     // cleaning previous round result
     currentChoices[0].innerHTML = "";
@@ -138,7 +99,7 @@ function displayChoices(user, enemy, result) {
     console.log(`\n\nYou have chosen ${user} while you enemy chose ${enemy}`);
     if (result == 1)
     {
-       outcome.innerHTML = "You won this round!";
+       outcome.innerHTML = "You won this round...";
        updateScoreColors(user);
     }
     else if (result == 0)
@@ -148,7 +109,7 @@ function displayChoices(user, enemy, result) {
     }
     else
     {
-       outcome.innerHTML = "You lost this one";
+       outcome.innerHTML = "You lost this one...";
        updateScoreColors(enemy);
     }
 }
@@ -226,10 +187,11 @@ function gameOver() {
     isGameOver = true;
 
     if (userScore == 5)
-        console.log("---------- YOU WIN -----------");
+        outcome.innerHTML = "---------- YOU WIN -----------";
     else
-        console.log("---------- YOU LOST ----------");
-    console.log("If you would like to play again, type \"playAgain()\"\nwithout quotes but keeping parenthesis...")
+        outcome.innerHTML = "---------- YOU LOST ----------";
+    
+    playButton.setAttribute("style", "");
 }
 
 function gameLoop() {
@@ -238,17 +200,4 @@ function gameLoop() {
     updateScorePoints();
     if (userScore == 5 || enemyScore == 5)
         gameOver();
-}
-
-function play() {
-    while (!isGameOver) {
-        gameLoop();
-    }
-}
-
-function playAgain() {
-    isGameOver = false;
-    userScore = 0;
-    enemyScore = 0;
-    play();
 }
