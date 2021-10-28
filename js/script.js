@@ -25,6 +25,14 @@ playButton.addEventListener("click", (e) => {
     // play();
 });
 
+playerOptionsButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        userChoice = e.currentTarget.classList[0];
+        enemyChoice = getEnemyChoice();
+        gameLoop();
+    });
+});
+
 function hideGameStage() {
     playerOptionsContainer.setAttribute("style", "display: none");
     scoreBoard.setAttribute("style", "display: none");
@@ -105,40 +113,43 @@ function displayChoices(user, enemy, result) {
 
 function compareChoices(user, enemy) {
     let result;
-    switch (user) {
-        case validChoices[0]:
-            // case where user chose rock
-            if (enemy === user) {
-                result = 0;
-            } else if (enemy === validChoices[1]) {
-                result = -1;
-            } else {
-                result = 1;
-            }
-            break;
-        case validChoices[1]:
-            // case where user chose paper
-            if (enemy === user) {
-                result = 0;
-            } else if (enemy === validChoices[2]) {
-                result = -1;
-            } else {
-                result = 1;
-            }
-            break;
-        case validChoices[2]:
-            // case where user chose scissor
-            if (enemy === user) {
-                result = 0;
-            } else if (enemy === validChoices[0]) {
-                result = -1;
-            } else {
-                result = 1;
-            }
-            break;
+
+    if (enemy === user)
+        result = 0;
+    else {
+        switch (user) {
+            case validChoices[0]:
+                // case where user chose rock
+                if (enemy === validChoices[1])
+                    result = -1;
+                else
+                    result = 1;
+                break;
+            case validChoices[1]:
+                // case where user chose paper
+                if (enemy === validChoices[2])
+                    result = -1;
+                else
+                    result = 1;
+                break;
+            case validChoices[2]:
+                // case where user chose scissor
+                if (enemy === validChoices[0])
+                    result = -1;
+                else
+                    result = 1;
+                break;
+        }
     }
     displayChoices(user, enemy, result);
     return result;
+}
+
+function calculateScore(roundResult) {
+    if (roundResult > 0)
+        userScore++;
+    else if (roundResult < 0)
+        enemyScore++;
 }
 
 function gameOver() {
@@ -152,24 +163,8 @@ function gameOver() {
 }
 
 function gameLoop() {
-    if (firstTime)
-        welcome();
-    if (display)
-        showScore();
-
-    display = true;
-    enemyChoice = getEnemyChoice();
-    userChoice = getUserChoice();
-    if (userChoice === "invalid") {
-        display = false;
-        return;
-    }
-
     let result = compareChoices(userChoice, enemyChoice);
-    if (result > 0)
-        userScore++;
-    else if (result < 0)
-        enemyScore++;
+    calculateScore(result);
     if (userScore == 5 || enemyScore == 5)
         gameOver();
 }
