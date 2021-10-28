@@ -1,3 +1,4 @@
+// game variables
 let userScore = 0;
 let enemyScore = 0;
 let display = true;
@@ -6,6 +7,14 @@ let enemyChoice;
 let userChoice;
 let isGameOver = false;
 let firstTime = true;
+
+// DOM elements
+let playButton = document.querySelector(".play");
+
+// Nothing should happen until this button is pressed
+playButton.addEventListener("click", (e) => {
+    play();
+});
 
 function welcome() {
     console.log("================================================");

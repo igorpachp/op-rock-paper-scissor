@@ -18,24 +18,20 @@ h1 {
     justify-content: center;
 }
 
+h1 > span {
+    flex: 0 1 auto;
+}
+
 .rock {
     color: #ff5555;
-    flex: 0 1 auto;
 }
 
 .paper {
     color: #7788ff;
-    flex: 0 1 auto;
 }
 
 .scissor {
     color: #77ddaa;
-    flex: 0 1 auto;
-}
-
-.draw {
-    color: #6f6a60;
-    border: solid 4px #6f6a60;
 }
 
 .welcome,
@@ -120,7 +116,8 @@ h2 {
     width: 100%;
 }
 
-.options > div {
+.options > button {
+    background-color: #ffffff;
     border: solid #dddddd 2px;
     border-radius: 12px;
     padding: 32px;
@@ -144,7 +141,6 @@ h2 {
 
 .choice {
     font-size: 128px;
-    border: solid #dddddd 2px;
     border-radius: 12px;
     padding: 12px;
 }
