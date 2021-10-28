@@ -139,14 +139,38 @@ function displayChoices(user, enemy, result) {
     if (result == 1)
     {
        outcome.innerHTML = "You won this round!";
+       updateScoreColors(user);
     }
     else if (result == 0)
     {
        outcome.innerHTML = "That's a draw! No one gets points...";
+       updateScoreColors("draw");
     }
     else
     {
        outcome.innerHTML = "You lost this one";
+       updateScoreColors(enemy);
+    }
+}
+
+function updateScoreColors(winner) {
+    switch (winner) {
+        case validChoices[0]:
+            scoreBoard.setAttribute("style","color:#ff5555; border-color:#ff5555");
+            outcome.setAttribute("style","color:#ff5555");
+            break;
+        case validChoices[1]:
+            scoreBoard.setAttribute("style", "color: #7788ff; border-color: #7788ff");
+            outcome.setAttribute("style","color:#7788ff");
+            break;
+        case validChoices[2]:
+            scoreBoard.setAttribute("style", "color: #77ddaa; border-color: #77ddaa");
+            outcome.setAttribute("style","color:#77ddaa");
+            break;
+        default:
+            scoreBoard.setAttribute("style", "color: #6f6a60; border-color: #6f6a60");
+            outcome.setAttribute("style","color:#6f6a60");
+            break;
     }
 }
 
@@ -191,6 +215,13 @@ function calculateScore(roundResult) {
         enemyScore++;
 }
 
+function updateScorePoints() {
+    let scores = scoreBoard.querySelectorAll(".score");
+
+    scores[0].innerHTML = userScore;
+    scores[1].innerHTML = enemyScore;
+}
+
 function gameOver() {
     isGameOver = true;
 
@@ -204,6 +235,7 @@ function gameOver() {
 function gameLoop() {
     let result = compareChoices(userChoice, enemyChoice);
     calculateScore(result);
+    updateScorePoints();
     if (userScore == 5 || enemyScore == 5)
         gameOver();
 }
