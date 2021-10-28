@@ -10,11 +10,36 @@ let firstTime = true;
 
 // DOM elements
 let playButton = document.querySelector(".play");
+let playerOptionsContainer = document.querySelector(".options");
+let playerOptionsButtons = playerOptionsContainer.querySelectorAll("button");
+let scoreBoard = document.querySelector(".score-board");
+let currentChoices = scoreBoard.querySelectorAll(".choice");
+let outcome = document.querySelector(".outcome");
+
+// hiding the part of ui that should only be seen while playing
+hideGameStage();
 
 // Nothing should happen until this button is pressed
 playButton.addEventListener("click", (e) => {
-    play();
+    displayGameStage(e);
+    // play();
 });
+
+function hideGameStage() {
+    playerOptionsContainer.setAttribute("style", "display: none");
+    scoreBoard.setAttribute("style", "display: none");
+    currentChoices.forEach(choice => {
+        choice.setAttribute("style", "display: none");
+    });
+    outcome.textContent = "";
+    outcome.setAttribute("style", "display: none");
+}
+
+function displayGameStage(playButton) {
+    playButton.target.setAttribute("style", "display: none");
+    playerOptionsContainer.setAttribute("style", "");
+    scoreBoard.setAttribute("style", "");
+}
 
 function welcome() {
     console.log("================================================");
